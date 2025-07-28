@@ -1,0 +1,127 @@
+[gd_scene load_steps=11 format=3 uid="uid://s71hq1w5vbra"]
+
+[ext_resource type="Script" uid="uid://c8t4hc8fosgh0" path="res://scenes/ui/main.gd" id="1_0ay0p"]
+[ext_resource type="Texture2D" uid="uid://y6csbcpe8yxi" path="res://assets/drop_edges.svg" id="2_2p1s2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2p1s2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2p1s2"]
+bg_color = Color(0.12549, 0.12549, 0.129412, 1)
+border_width_top = 8
+border_width_bottom = 8
+border_color = Color(0.12549, 0.12549, 0.129412, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_02nsg"]
+bg_color = Color(0.0862745, 0.0862745, 0.0862745, 1)
+border_width_top = 8
+border_width_bottom = 8
+border_color = Color(0.0862745, 0.0862745, 0.0862745, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_02nsg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vspwy"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7n028"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jvuow"]
+
+[sub_resource type="Theme" id="Theme_0ay0p"]
+Button/styles/focus = SubResource("StyleBoxEmpty_2p1s2")
+Button/styles/hover = SubResource("StyleBoxFlat_2p1s2")
+Button/styles/normal = SubResource("StyleBoxFlat_2p1s2")
+Button/styles/pressed = SubResource("StyleBoxFlat_02nsg")
+HSeparator/styles/separator = SubResource("StyleBoxEmpty_02nsg")
+LineEdit/styles/focus = SubResource("StyleBoxEmpty_vspwy")
+LineEdit/styles/normal = SubResource("StyleBoxEmpty_7n028")
+LineEdit/styles/read_only = SubResource("StyleBoxEmpty_jvuow")
+TextEdit/colors/background_color = Color(0.12549, 0.12549, 0.129412, 1)
+
+[node name="Main" type="Control" node_paths=PackedStringArray("text_edit", "video_name", "file_selector_dialog", "save_file_dialog")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_0ay0p")
+script = ExtResource("1_0ay0p")
+text_edit = NodePath("MarginContainer/Menu/ChapterResult")
+video_name = NodePath("MarginContainer/Menu/FileName")
+file_selector_dialog = NodePath("SelectFile")
+save_file_dialog = NodePath("SaveFile")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0862745, 0.0862745, 0.0862745, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="Menu" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/Menu"]
+layout_mode = 2
+texture = ExtResource("2_2p1s2")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="MarginContainer/Menu"]
+layout_mode = 2
+text = "Drop Video Files Here"
+horizontal_alignment = 1
+
+[node name="OpenFileManager" type="Button" parent="MarginContainer/Menu"]
+layout_mode = 2
+text = "Open File Manager"
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/Menu"]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="FileName" type="LineEdit" parent="MarginContainer/Menu"]
+layout_mode = 2
+placeholder_text = "Video File Name"
+alignment = 1
+
+[node name="ChapterResult" type="TextEdit" parent="MarginContainer/Menu"]
+layout_mode = 2
+size_flags_vertical = 3
+placeholder_text = "Extracted Chapters"
+wrap_mode = 1
+
+[node name="SaveFileManager" type="Button" parent="MarginContainer/Menu"]
+layout_mode = 2
+text = "Save"
+
+[node name="SelectFile" type="FileDialog" parent="."]
+title = "Open a File"
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+use_native_dialog = true
+
+[node name="SaveFile" type="FileDialog" parent="."]
+access = 2
+filters = PackedStringArray("*.txt")
+use_native_dialog = true
+
+[connection signal="pressed" from="MarginContainer/Menu/OpenFileManager" to="." method="_on_open_file_manager_pressed"]
+[connection signal="pressed" from="MarginContainer/Menu/SaveFileManager" to="." method="_on_save_file_manager_pressed"]
+[connection signal="file_selected" from="SelectFile" to="." method="_on_select_file_file_selected"]
+[connection signal="file_selected" from="SaveFile" to="." method="_on_save_file_file_selected"]
