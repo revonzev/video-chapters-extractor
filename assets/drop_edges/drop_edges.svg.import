@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://y6csbcpe8yxi"
-path="res://.godot/imported/drop_edges.svg-2440fe145a4c5026fac57e5d03645530.ctex"
+path="res://.godot/imported/drop_edges.svg-a8d5d0b6c71c782b131fb09468f03709.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/drop_edges.svg"
-dest_files=["res://.godot/imported/drop_edges.svg-2440fe145a4c5026fac57e5d03645530.ctex"]
+source_file="res://assets/drop_edges/drop_edges.svg"
+dest_files=["res://.godot/imported/drop_edges.svg-a8d5d0b6c71c782b131fb09468f03709.ctex"]
 
 [params]
 

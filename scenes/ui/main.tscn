@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://s71hq1w5vbra"]
 
 [ext_resource type="Script" uid="uid://c8t4hc8fosgh0" path="res://scenes/ui/main.gd" id="1_0ay0p"]
-[ext_resource type="Texture2D" uid="uid://y6csbcpe8yxi" path="res://assets/drop_edges.svg" id="2_2p1s2"]
+[ext_resource type="Texture2D" uid="uid://y6csbcpe8yxi" path="res://assets/drop_edges/drop_edges.svg" id="2_2p1s2"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2p1s2"]
 
