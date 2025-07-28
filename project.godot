@@ -11,12 +11,15 @@ config_version=5
 [application]
 
 config/name="Video Chapters Extractor"
-config/version="1.0.0s"
+config/description="An application to extract chapters from video files."
+config/version="1.0.0"
 run/main_scene="uid://s71hq1w5vbra"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 run/max_fps=12
 run/low_processor_mode=true
-config/icon="res://icon.svg"
+boot_splash/image="uid://bwoj3utxh6gs8"
+config/icon="uid://5rxy7pknagcw"
+config/windows_native_icon="res://assets/icons/icon.ico"
 
 [display]
 
