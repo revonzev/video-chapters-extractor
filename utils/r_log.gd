@@ -2,7 +2,7 @@ class_name R_Log extends R_Node
 
 
 enum Level {ALL, NONE, INFO, WARN, ERROR, RESULT, SUCCESS, FAIL}
-enum Category {ALL, NONE, UNDEFINED, APP, SETTINGS, INTERFACE}
+enum Category {ALL, NONE, UNDEFINED, APP, DEVICE, SETTINGS, INTERFACE}
 
 static var debuger_level_filter: Level = Level.ALL
 static var debuger_category_filter: Category = Category.ALL
@@ -93,6 +93,8 @@ static func debug_category_string(debug_category: Category) -> StringName:
 			return &"NONE"
 		Category.APP:
 			return &"APP"
+		Category.DEVICE:
+			return &"DEVICE"
 		Category.SETTINGS:
 			return &"SETTINGS"
 		Category.INTERFACE:
