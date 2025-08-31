@@ -13,6 +13,7 @@ var to_convert_file_path: String
 
 func _ready() -> void:
 	log_os_version()
+	log_computer_spec()
 	log_ffprobe_version()
 	get_window().files_dropped.connect(_on_files_dropped)
 
@@ -104,9 +105,27 @@ func log_ffprobe_version() -> void:
 
 
 func log_os_version() -> void:
-	R_Log.info("OS name: %s" % OS.get_name(), R_Log.Category.APP)
-	R_Log.info("OS version: %s" % OS.get_version(), R_Log.Category.APP)
-	R_Log.info("OS version alias: %s" % OS.get_version_alias(), R_Log.Category.APP)
+	R_Log.info("OS name: %s" % OS.get_name(), R_Log.Category.DEVICE)
+	R_Log.info("OS version: %s" % OS.get_version(), R_Log.Category.DEVICE)
+	R_Log.info("OS version alias: %s" % OS.get_version_alias(), R_Log.Category.DEVICE)
+	R_Log.info("OS distribution name: %s" % OS.get_distribution_name(), R_Log.Category.DEVICE)
+	R_Log.info("model name: %s" % OS.get_model_name(), R_Log.Category.DEVICE)
+
+
+func log_computer_spec() -> void:
+	R_Log.info("processor count: %s" % str(OS.get_processor_count()), R_Log.Category.DEVICE)
+	R_Log.info("processor name: %s" % OS.get_processor_name(), R_Log.Category.DEVICE)
+	R_Log.info("rendering driver name: %s" % RenderingServer.get_current_rendering_driver_name(), R_Log.Category.DEVICE)
+	R_Log.info("rendering method: %s" % RenderingServer.get_current_rendering_method(), R_Log.Category.DEVICE)
+	R_Log.info("video adapter name: %s" % RenderingServer.get_video_adapter_name(), R_Log.Category.DEVICE)
+	R_Log.info("video adapter type: %s" % RenderingServer.get_video_adapter_type(), R_Log.Category.DEVICE)
+	R_Log.info("video adapter type: %s" % RenderingServer.get_video_adapter_vendor(), R_Log.Category.DEVICE)
+
+	var rendering_device: RenderingDevice = RenderingServer.get_rendering_device()
+	if rendering_device == null: return
+	R_Log.info("rendering device name: %s" % str(rendering_device.get_device_name()), R_Log.Category.DEVICE)
+	R_Log.info("rendering device vendor name: %s" % str(rendering_device.get_device_vendor_name()), R_Log.Category.DEVICE)
+	R_Log.info("rendering device vendor name: %s" % str(rendering_device.get_), R_Log.Category.DEVICE)
 
 
 func _on_open_file_manager_pressed() -> void:
