@@ -13,6 +13,7 @@ var to_convert_file_path: String
 
 func _ready() -> void:
 	log_ffprobe_version()
+	log_os_version()
 	get_window().files_dropped.connect(_on_files_dropped)
 
 
@@ -100,6 +101,12 @@ func log_ffprobe_version() -> void:
 	var output: Array = []
 	OS.execute("ffprobe", ["-version"], output)
 	R_Log.info(str(output[0]), R_Log.Category.APP)
+
+
+func log_os_version() -> void:
+	R_Log.info("OS name: %s" % OS.get_name(), R_Log.Category.APP)
+	R_Log.info("OS version: %s" % OS.get_version(), R_Log.Category.APP)
+	R_Log.info("OS version alias: %s" % OS.get_version_alias(), R_Log.Category.APP)
 
 
 func _on_open_file_manager_pressed() -> void:
