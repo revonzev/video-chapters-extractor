@@ -12,6 +12,7 @@ var to_convert_file_path: String
 
 
 func _ready() -> void:
+	log_ffprobe_version()
 	get_window().files_dropped.connect(_on_files_dropped)
 
 
@@ -93,6 +94,12 @@ func save_result(path: String) -> void:
 	var file = FileAccess.open(path, FileAccess.WRITE)
 	file.store_string(converter_result)
 	file.close()
+
+
+func log_ffprobe_version() -> void:
+	var output: Array = []
+	OS.execute("ffprobe", ["-version"], output)
+	R_Log.info(str(output[0]), R_Log.Category.APP)
 
 
 func _on_open_file_manager_pressed() -> void:
