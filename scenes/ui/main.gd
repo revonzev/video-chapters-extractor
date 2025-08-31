@@ -24,6 +24,7 @@ func convert_file_to_text_chapters(file_to_convert: String) -> void:
 	to_convert_file_path = file_to_convert
 
 	var output: Array = []
+	R_Log.info("converting %s" % file_to_convert, R_Log.Category.APP)
 	OS.execute("ffprobe", ["-show_chapters", file_to_convert], output)
 	
 	if not str(output[0]).contains("[CHAPTER]"):
@@ -42,6 +43,7 @@ func convert_file_to_text_chapters(file_to_convert: String) -> void:
 
 	for raw_chapter: String in raw_chapters:
 		chapters.append(string_to_chapter(raw_chapter))
+	R_Log.info("chapter count: %s" % str(chapters.size()), R_Log.Category.APP)
 
 	for chapter: Chapter in chapters:
 		var hours: int = int(chapter.start_time / 3600)
@@ -62,6 +64,7 @@ func convert_file_to_text_chapters(file_to_convert: String) -> void:
 		print(str(chapter)+"\n")
 	
 	converter_result = text_edit.text
+	R_Log.info("file converted", R_Log.Category.APP)
 
 
 func int_to_string_with_zero_prefix(value: int) -> String:
