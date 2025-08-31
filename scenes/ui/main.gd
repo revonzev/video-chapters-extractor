@@ -104,7 +104,7 @@ func save_result(path: String) -> void:
 func log_ffprobe_version() -> void:
 	var output: Array = []
 	OS.execute("ffprobe", ["-version"], output)
-	R_Log.info(str(output[0]), R_Log.Category.APP)
+	R_Log.info(str(output[0]), R_Log.Category.DEVICE)
 
 
 func log_os_version() -> void:
