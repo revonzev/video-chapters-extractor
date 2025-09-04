@@ -123,7 +123,11 @@ func is_ffprobe_valid() -> bool:
 
 func save_app():
 	var config: ConfigFile = ConfigFile.new()
+
 	config.set_value("app", "ffprobe_path", ffprobe_path)
+	config.set_value("app", "converter_result", converter_result)
+	config.set_value("app", "to_convert_file_path", to_convert_file_path)
+
 	config.save("user://app.cfg")
 	R_Log.info("app.cfg successfully saved at %s" % ProjectSettings.globalize_path("user://app.cfg"), R_Log.Category.APP)
 
@@ -138,6 +142,13 @@ func load_app():
 
 	ffprobe_path = config.get_value("app", "ffprobe_path")
 	ffprobe_path_line_edit.text = ffprobe_path
+
+	converter_result = config.get_value("app", "converter_result", "")
+	text_edit.text = converter_result
+
+	to_convert_file_path = str(config.get_value("app", "to_convert_file_path", ""))
+	video_name.text = to_convert_file_path.get_file()
+
 	R_Log.info("app.cfg successfully loaded", R_Log.Category.APP)
 
 
