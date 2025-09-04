@@ -6,26 +6,28 @@ extends Control
 @export var file_selector_dialog: FileDialog
 @export var save_file_dialog: FileDialog
 
-
 var converter_result: String
 var to_convert_file_path: String
+var ffprobe_path: String = "ffprobe"
+var has_ffprobe_path_validated: bool = false
 
 
 func _ready() -> void:
 	log_os_version()
 	log_computer_spec()
-	log_ffprobe_version()
 	get_window().files_dropped.connect(_on_files_dropped)
 
 
 func convert_file_to_text_chapters(file_to_convert: String) -> void:
+	if not is_ffprobe_valid(): return
+
 	text_edit.text = ""
 	video_name.text = file_to_convert.get_file()
 	to_convert_file_path = file_to_convert
 
 	var output: Array = []
 	R_Log.info("converting %s" % file_to_convert, R_Log.Category.APP)
-	OS.execute("ffprobe", ["-show_chapters", file_to_convert], output)
+	OS.execute(ffprobe_path, ["-show_chapters", file_to_convert], output)
 	
 	if not str(output[0]).contains("[CHAPTER]"):
 		text_edit.text = (
@@ -101,10 +103,22 @@ func save_result(path: String) -> void:
 	file.close()
 
 
-func log_ffprobe_version() -> void:
+func is_ffprobe_valid() -> bool:
+	if has_ffprobe_path_validated: return true
+
 	var output: Array = []
-	OS.execute("ffprobe", ["-version"], output)
-	R_Log.info(str(output[0]), R_Log.Category.DEVICE)
+	OS.execute(ffprobe_path, ["-version"], output)
+	var result: String = str(output[0])
+
+	if result.begins_with("ffprobe version "):
+		log_ffprobe_version(result)
+		has_ffprobe_path_validated = true
+		return true
+	return false
+
+
+func log_ffprobe_version(version: String) -> void:
+	R_Log.info(version, R_Log.Category.DEVICE)
 
 
 func log_os_version() -> void:
@@ -149,6 +163,11 @@ func _on_files_dropped(files: PackedStringArray):
 
 func _on_save_file_file_selected(path: String) -> void:
 	save_result(path)
+
+
+func _on_ffprobe_path_text_changed(new_text:String) -> void:
+	ffprobe_path = new_text
+	has_ffprobe_path_validated = false
 
 
 class Chapter:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://s71hq1w5vbra"]
+[gd_scene load_steps=9 format=3 uid="uid://s71hq1w5vbra"]
 
 [ext_resource type="Script" uid="uid://c8t4hc8fosgh0" path="res://scenes/ui/main.gd" id="1_0ay0p"]
 [ext_resource type="Texture2D" uid="uid://y6csbcpe8yxi" path="res://assets/drop_edges/drop_edges.svg" id="2_2p1s2"]
@@ -19,11 +19,13 @@ border_color = Color(0.0862745, 0.0862745, 0.0862745, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_02nsg"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vspwy"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7n028"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jvuow"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vspwy"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0.12549, 0.12549, 0.129412, 1)
+border_color = Color(0.12549, 0.12549, 0.129412, 1)
 
 [sub_resource type="Theme" id="Theme_0ay0p"]
 Button/styles/focus = SubResource("StyleBoxEmpty_2p1s2")
@@ -31,9 +33,9 @@ Button/styles/hover = SubResource("StyleBoxFlat_2p1s2")
 Button/styles/normal = SubResource("StyleBoxFlat_2p1s2")
 Button/styles/pressed = SubResource("StyleBoxFlat_02nsg")
 HSeparator/styles/separator = SubResource("StyleBoxEmpty_02nsg")
-LineEdit/styles/focus = SubResource("StyleBoxEmpty_vspwy")
-LineEdit/styles/normal = SubResource("StyleBoxEmpty_7n028")
-LineEdit/styles/read_only = SubResource("StyleBoxEmpty_jvuow")
+LineEdit/styles/focus = SubResource("StyleBoxFlat_vspwy")
+LineEdit/styles/normal = SubResource("StyleBoxFlat_vspwy")
+LineEdit/styles/read_only = SubResource("StyleBoxFlat_vspwy")
 TextEdit/colors/background_color = Color(0.12549, 0.12549, 0.129412, 1)
 
 [node name="Main" type="Control" node_paths=PackedStringArray("text_edit", "video_name", "file_selector_dialog", "save_file_dialog")]
@@ -90,6 +92,11 @@ horizontal_alignment = 1
 layout_mode = 2
 text = "Open File Manager"
 
+[node name="FFProbePath" type="LineEdit" parent="MarginContainer/Menu"]
+layout_mode = 2
+text = "ffprobe"
+placeholder_text = "ffprobe path"
+
 [node name="HSeparator" type="HSeparator" parent="MarginContainer/Menu"]
 layout_mode = 2
 theme_override_constants/separation = 32
@@ -122,6 +129,7 @@ filters = PackedStringArray("*.txt")
 use_native_dialog = true
 
 [connection signal="pressed" from="MarginContainer/Menu/OpenFileManager" to="." method="_on_open_file_manager_pressed"]
+[connection signal="text_changed" from="MarginContainer/Menu/FFProbePath" to="." method="_on_ffprobe_path_text_changed"]
 [connection signal="pressed" from="MarginContainer/Menu/SaveFileManager" to="." method="_on_save_file_manager_pressed"]
 [connection signal="file_selected" from="SelectFile" to="." method="_on_select_file_file_selected"]
 [connection signal="file_selected" from="SaveFile" to="." method="_on_save_file_file_selected"]
