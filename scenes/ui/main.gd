@@ -5,6 +5,7 @@ extends Control
 @export var video_name: LineEdit
 @export var file_selector_dialog: FileDialog
 @export var save_file_dialog: FileDialog
+@export var ffprobe_path_line_edit: LineEdit
 
 var converter_result: String
 var to_convert_file_path: String
@@ -15,6 +16,7 @@ var has_ffprobe_path_validated: bool = false
 func _ready() -> void:
 	log_os_version()
 	log_computer_spec()
+	load_app()
 	get_window().files_dropped.connect(_on_files_dropped)
 
 
@@ -66,7 +68,9 @@ func convert_file_to_text_chapters(file_to_convert: String) -> void:
 		print(str(chapter)+"\n")
 	
 	converter_result = text_edit.text
+
 	R_Log.info("file converted", R_Log.Category.APP)
+	save_app()
 
 
 func int_to_string_with_zero_prefix(value: int) -> String:
@@ -115,6 +119,26 @@ func is_ffprobe_valid() -> bool:
 		has_ffprobe_path_validated = true
 		return true
 	return false
+
+
+func save_app():
+	var config: ConfigFile = ConfigFile.new()
+	config.set_value("app", "ffprobe_path", ffprobe_path)
+	config.save("user://app.cfg")
+	R_Log.info("app.cfg successfully saved at %s" % ProjectSettings.globalize_path("user://app.cfg"), R_Log.Category.APP)
+
+
+func load_app():
+	var config: ConfigFile = ConfigFile.new()
+	
+	var error: Error = config.load("user://app.cfg")
+	if error != OK:
+		R_Log.warn("app.cfg failed to load, error code: %s" % str(error), R_Log.Category.APP)
+		return
+
+	ffprobe_path = config.get_value("app", "ffprobe_path")
+	ffprobe_path_line_edit.text = ffprobe_path
+	R_Log.info("app.cfg successfully loaded", R_Log.Category.APP)
 
 
 func log_ffprobe_version(version: String) -> void:

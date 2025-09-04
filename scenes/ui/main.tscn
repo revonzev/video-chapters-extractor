@@ -38,7 +38,7 @@ LineEdit/styles/normal = SubResource("StyleBoxFlat_vspwy")
 LineEdit/styles/read_only = SubResource("StyleBoxFlat_vspwy")
 TextEdit/colors/background_color = Color(0.12549, 0.12549, 0.129412, 1)
 
-[node name="Main" type="Control" node_paths=PackedStringArray("text_edit", "video_name", "file_selector_dialog", "save_file_dialog")]
+[node name="Main" type="Control" node_paths=PackedStringArray("text_edit", "video_name", "file_selector_dialog", "save_file_dialog", "ffprobe_path_line_edit")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -51,6 +51,7 @@ text_edit = NodePath("MarginContainer/Menu/ChapterResult")
 video_name = NodePath("MarginContainer/Menu/FileName")
 file_selector_dialog = NodePath("SelectFile")
 save_file_dialog = NodePath("SaveFile")
+ffprobe_path_line_edit = NodePath("MarginContainer/Menu/FFProbePath")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
