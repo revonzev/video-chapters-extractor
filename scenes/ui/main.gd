@@ -40,6 +40,7 @@ func convert_file_to_text_chapters(file_to_convert: String) -> void:
 		return
 
 	var sanitized: String = output[0].replace("\\n", "\n")
+	sanitized = sanitized.replace("\r", "")
 	sanitized = sanitized.replace("[CHAPTER]\n", "")
 	sanitized = sanitized.replace("[/CHAPTER]\n", "---SPLIT---")
 	var chapters: Array[Chapter] = []
