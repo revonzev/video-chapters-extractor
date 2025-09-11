@@ -39,6 +39,8 @@ func convert_file_to_text_chapters(file_to_convert: String) -> void:
 		)
 		return
 
+	log_raw_ffprobe_chapters_string(str(output[0]))
+
 	var sanitized: String = output[0].replace("\\n", "\n")
 	sanitized = sanitized.replace("\r", "")
 	sanitized = sanitized.replace("[CHAPTER]\n", "")
@@ -152,6 +154,9 @@ func load_app():
 
 	R_Log.info("app.cfg successfully loaded", R_Log.Category.APP)
 
+
+func log_raw_ffprobe_chapters_string(text: String) -> void:
+	R_Log.info("'ffprobe -show_chapters' raw result: %s" % text.c_escape(), R_Log.Category.APP)
 
 func log_ffprobe_version(version: String) -> void:
 	R_Log.info(version, R_Log.Category.DEVICE)
